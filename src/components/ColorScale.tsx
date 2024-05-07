@@ -1,15 +1,14 @@
-import * as d3 from "d3";
 import ColorRange from "./ColorRange";
 
 type ColorScaleProps = {
   scaleName: string;
+  colorScale: string[] | ((d: number) => string);
 };
-const ColorScale = ({ scaleName }: ColorScaleProps) => {
-  const d3ColorScale = d3[scaleName];
+const ColorScale = ({ scaleName, colorScale }: ColorScaleProps) => {
   return (
     <div className="color-scale">
-      <h3>Scale Name</h3>
-      <ColorRange scaleName={scaleName} colorScale={d3ColorScale} />
+      <h3>{scaleName}</h3>
+      <ColorRange scaleName={scaleName} colorScale={colorScale} />
     </div>
   );
 };
