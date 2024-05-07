@@ -1,19 +1,25 @@
 import React from "react";
-const HEIGHT = 30;
-const WIDTH = 300;
-const NUM_STOPS = 30;
 
 type ColorRangeProps = {
+  height?: number;
+  width?: number;
+  numStops?: number;
   colorScale: string[] | ((d: number) => string);
   scaleName: string;
 };
 
-const ColorRange = ({ colorScale, scaleName }: ColorRangeProps) => {
+const ColorRange = ({
+  colorScale,
+  scaleName,
+  height = 30,
+  width = 300,
+  numStops = 30,
+}: ColorRangeProps) => {
   const gradientId = `gradient--${scaleName}`;
   console.log(`isArray? ${scaleName}`, Array.isArray(colorScale));
 
   return (
-    <svg height={HEIGHT} width={WIDTH}>
+    <svg height={height} width={width}>
       <defs>
         <linearGradient
           id={gradientId}
@@ -24,10 +30,7 @@ const ColorRange = ({ colorScale, scaleName }: ColorRangeProps) => {
           spreadMethod="pad"
         >
           {typeof colorScale == "function" && (
-            <FunctionStops
-              colorScaleFn={colorScale}
-              numberOfStops={NUM_STOPS}
-            />
+            <FunctionStops colorScaleFn={colorScale} numberOfStops={numStops} />
           )}
           {Array.isArray(colorScale) && (
             <ArrayStops colorScaleArray={colorScale} />
@@ -37,8 +40,8 @@ const ColorRange = ({ colorScale, scaleName }: ColorRangeProps) => {
       <rect
         x={0}
         y={0}
-        width={WIDTH}
-        height={HEIGHT}
+        width={width}
+        height={height}
         fill={`url(#${gradientId})`}
       />
     </svg>

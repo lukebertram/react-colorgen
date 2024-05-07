@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const interpolateWithSteps = (numberOfSteps: number) =>
     new Array(numberOfSteps).fill(null).map((_d, i) => i / (numberOfSteps - 1));
-  const customScale = d3.interpolate("cyan", "tomato");
+  const customScale = d3.interpolateHcl("cyan", "tomato");
   const stepScale = interpolateWithSteps(10).map(
     d3.interpolateHcl("cyan", "tomato")
   );
@@ -18,7 +18,11 @@ function App() {
           colorScale={d3.interpolateInferno}
         />
         <ColorScale scaleName="customScale" colorScale={customScale} />
-        <ColorScale scaleName="custom-step-scale" colorScale={stepScale} />
+        <ColorScale
+          scaleName="custom-step-scale"
+          colorScale={stepScale}
+          height={100}
+        />
       </div>
     </div>
   );
